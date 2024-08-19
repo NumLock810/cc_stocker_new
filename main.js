@@ -189,7 +189,7 @@ Game.registerMod("gincookistocker",{
 							(lmd == 4) && ((md == 1) || (md == 3))	||	// fast fall stopped
 							(lmd == 5) && ((md == 1) || (md == 3))	||	// chaotic stopped
                             (lmd == 0) && ((md == 1) || (md == 3))	||	// stable stopped
-                            stockList.goods[i].currentPrice == 1.0      // price is 1$
+                            stockList.goods[i].currentPrice.toPrecision(4) == 1.000      // price is 1$
 						)
 						&&
 						(stockList.goods[i].currentPrice < stockList.goods[i].restingPrice)	// only if the price is lower than resting price
