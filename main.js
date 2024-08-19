@@ -184,10 +184,12 @@ Game.registerMod("gincookistocker",{
 					}
 
 					if (	// buy conditions
-						(
-							(lmd == 2) && ((md !=4) && (md!=5)) ||	// slow fall stopped
-							(lmd == 4) && ((md !=2) && (md!=5))	||	// fast fall stopped
-							(lmd == 5) && ((md !=2) && (md!=4))		// chaotic stopped
+						( // ['stable','slowly rising','slowly falling','rapidly rising','rapidly falling','fluctuating']
+							(lmd == 2) && ((md == 1) || (md == 3))  ||	// slow fall stopped
+							(lmd == 4) && ((md == 1) || (md == 3))	||	// fast fall stopped
+							(lmd == 5) && ((md == 1) || (md == 3))	||	// chaotic stopped
+                            (lmd == 0) && ((md == 1) || (md == 3))	||	// stable stopped
+                            stockList.goods[i].currentPrice == 1.0      // price is 1$
 						)
 						&&
 						(stockList.goods[i].currentPrice < stockList.goods[i].restingPrice)	// only if the price is lower than resting price
@@ -204,10 +206,11 @@ Game.registerMod("gincookistocker",{
 					if (	// sell conditions
 						(stockList.goods[i].stock > 0)	// only if the stock is present
 						&&
-						(
-							(lmd == 1) && ((md !=3) && (md!=5))	||	// slow rise stopped
-							(lmd == 3) && ((md !=1) && (md!=5))	||	// fast rise stopped
-							(lmd == 5) && ((md !=1) && (md!=3))		// chaotic stopped
+						( // ['stable','slowly rising','slowly falling','rapidly rising','rapidly falling','fluctuating']
+							(lmd == 1) && ((md == 2) || (md == 4))	||	// slow rise stopped
+							(lmd == 3) && ((md == 2) || (md == 4))	||	// fast rise stopped
+							(lmd == 5) && ((md == 2) || (md == 4))	||	// chaotic stopped
+                            (lmd == 0) && ((md == 2) || (md == 4))	    // stable stopped
 						)
 						&& (stockList.goods[i].currentPrice > stockList.goods[i].priceBought)	// only if the price is higher than the price it was bought at
 					)
